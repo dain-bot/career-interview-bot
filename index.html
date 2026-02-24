@@ -1,163 +1,183 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 면접관 꼬리질문 봇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; background-color: #f1f5f9; }
+        .chat-container { height: calc(100vh - 320px); }
+        .glass-morphism { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .loading-dots:after { content: ' .'; animation: dots 1s steps(5, start) infinite; }
+        @keyframes dots { 
+            0%, 20% { color: rgba(0,0,0,0); text-shadow: .5em 0 0 rgba(0,0,0,0), 1em 0 0 rgba(0,0,0,0); } 
+            40% { color: #6366f1; text-shadow: .5em 0 0 rgba(0,0,0,0), 1em 0 0 rgba(0,0,0,0); } 
+            60% { text-shadow: .5em 0 0 #6366f1, 1em 0 0 rgba(0,0,0,0); } 
+            80%, 100% { text-shadow: .5em 0 0 #6366f1, 1em 0 0 #6366f1; } 
+        }
+    </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;13기 사전과제: AI 면접관 꼬리질문 봇&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&amp;display=swap');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chat-container { height: calc(100vh - 250px); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.glass-morphism { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 스크롤바 디자인 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chat-container::-webkit-scrollbar { width: 6px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chat-container::-webkit-scrollbar-thumb { background-color: #e2e8f0; border-radius: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="text-slate-800"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="max-w-3xl mx-auto px-4 py-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Header --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="text-center mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-bold mb-2"&gt;13기 커리어 프로그램 사전과제&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="text-3xl font-extrabold tracking-tight text-slate-900"&gt;🕵️ AI 면접관 꼬리질문 봇&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="mt-2 text-slate-500 text-sm"&gt;경험 분석 시트의 내용을 입력하고 날카로운 질문에 답하며 논리를 강화하세요.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Main Chat Interface --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="glass-morphism rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="chatWindow" class="chat-container overflow-y-auto p-6 space-y-6 bg-white/50"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Bot Welcome Message --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-start gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-lg shadow-lg shadow-indigo-100 shrink-0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i class="fa-solid fa-robot"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>반갑습니다. 저는 여러분의 경험 분석 내용을 검토할 **까다로운 시니어 면접관**입니다. &lt;br&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>작성하신 &lt;b&gt;경험 분석 시트의 내용&lt;/b&gt;을 아래에 복사해서 붙여넣어 주세요. 기술적 선택의 이유와 해결 과정을 집요하게 파고들어 질문을 던지겠습니다.</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Input Area --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="p-4 bg-white border-t border-slate-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex gap-2 bg-slate-100 p-2 rounded-2xl focus-within:ring-2 focus-within:ring-indigo-500 transition-all"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;textarea id="userInput" rows="2" class="flex-1 bg-transparent border-none px-4 py-2 focus:ring-0 resize-none outline-none text-sm" placeholder="여기에 경험 분석 내용을 입력하세요..."&gt;&lt;/textarea&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="sendBtn" class="bg-indigo-600 text-white w-12 h-12 rounded-xl hover:bg-indigo-700 transition-all flex items-center justify-center shadow-lg shadow-indigo-200"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;i class="fa-solid fa-paper-plane"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="mt-3 text-[11px] text-slate-400 text-center flex items-center justify-center gap-1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;i class="fa-solid fa-circle-info"&gt;&lt;/i&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>AI는 답변을 대신 써주지 않습니다. 스스로 답을 찾는 과정이 여러분의 실력이 됩니다.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script type="module"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// API 설정</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const apiKey = "AIzaSyBRvfomIdo1XbzVgzL9hxMXBo-MBtjyQyU"; // 실제 환경에서 자동으로 주입됩니다.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const chatWindow = document.getElementById('chatWindow');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const userInput = document.getElementById('userInput');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const sendBtn = document.getElementById('sendBtn');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const systemPrompt = `</p>
-<p class="p1"><span class="Apple-converted-space">    </span>당신은 IT 기업의 까다로운 시니어 기술 면접관입니다.<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>당신의 목적은 사용자가 제출한 프로젝트 경험 분석 내용을 보고, 논리적 허점을 찾아 '꼬리 질문'을 던지는 것입니다.</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>[상호작용 가이드라인]</p>
-<p class="p1"><span class="Apple-converted-space">    </span>1. 사용자의 글을 절대 칭찬하거나 보완해서 다시 써주지 마세요.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>2. "왜 그 기술을 선택했나요?", "성능 개선의 기준은 무엇이었나요?", "당시 발생할 수 있었던 사이드 이펙트는 고려했나요?" 등 날카로운 기술적 질문을 던지세요.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>3. 한 번에 '한 가지' 질문만 던져서 사용자가 깊이 고민하게 만드세요.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>4. 사용자가 답변을 하면, 그 답변 속의 키워드를 잡아 다시 심화 질문을 하세요 (최소 3단계 꼬리질문).</p>
-<p class="p1"><span class="Apple-converted-space">    </span>5. '학습력'과 '비판적 사고력'을 검증하는 톤을 유지하세요.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>6. 정중하지만 차가운 시니어 면접관의 페르소나를 유지하세요.</p>
-<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>async function fetchAIResponse(userText) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const payload = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>contents: [{ parts: [{ text: userText }] }],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>systemInstruction: { parts: [{ text: systemPrompt }] }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const response = await fetch(url, {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>method: 'POST',</p>
-<p class="p1"><span class="Apple-converted-space">                </span>headers: { 'Content-Type': 'application/json' },</p>
-<p class="p1"><span class="Apple-converted-space">                </span>body: JSON.stringify(payload)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const data = await response.json();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return data.candidates?.[0]?.content?.parts?.[0]?.text || "죄송합니다. 검토 중 오류가 발생했습니다. 다시 입력해 주세요.";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return "네트워크 연결이 불안정합니다. 잠시 후 다시 시도해 주세요.";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function addMessage(text, isUser = false) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const div = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>div.className = isUser ? 'flex justify-end' : 'flex items-start gap-3';</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const content = isUser<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>? `&lt;div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none shadow-md max-w-[85%] text-sm leading-relaxed"&gt;${text}&lt;/div&gt;`</p>
-<p class="p1"><span class="Apple-converted-space">            </span>: `&lt;div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-lg shadow-lg shadow-indigo-100 shrink-0"&gt;&lt;i class="fa-solid fa-robot"&gt;&lt;/i&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">               </span>&lt;div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-sm leading-relaxed whitespace-pre-wrap"&gt;${text}&lt;/div&gt;`;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>div.innerHTML = content;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>chatWindow.appendChild(div);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>chatWindow.scrollTop = chatWindow.scrollHeight;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>sendBtn.addEventListener('click', async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const text = userInput.value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!text) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage(text, true);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>userInput.value = '';</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 로딩 인디케이터</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const loadingDiv = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>loadingDiv.id = 'loading';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>loadingDiv.className = 'text-xs text-slate-400 italic ml-14 flex items-center gap-2';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>loadingDiv.innerHTML = '&lt;i class="fa-solid fa-spinner animate-spin"&gt;&lt;/i&gt; 면접관이 답변을 검토하고 질문을 준비 중입니다...';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>chatWindow.appendChild(loadingDiv);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>chatWindow.scrollTop = chatWindow.scrollHeight;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const aiRes = await fetchAIResponse(text);</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const loading = document.getElementById('loading');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (loading) chatWindow.removeChild(loading);</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>addMessage(aiRes);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>userInput.addEventListener('keydown', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (e.key === 'Enter' &amp;&amp; !e.shiftKey) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>sendBtn.click();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="text-slate-800">
+
+<div class="max-w-3xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-6">
+        <div class="inline-block bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-xs font-bold mb-2 tracking-wider uppercase">13th Sprint Career Mission</div>
+        <h1 class="text-3xl font-black tracking-tight text-slate-900">🕵️ AI 면접관 꼬리질문 봇</h1>
+        <p class="mt-2 text-slate-500 text-sm font-medium">경험 분석 시트를 바탕으로 여러분의 논리적 허점을 찾아 질문을 던집니다.</p>
+    </header>
+
+    <!-- API Key Entry (Security) -->
+    <div id="keySetup" class="bg-white p-8 rounded-3xl shadow-2xl border border-indigo-100 mb-6">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                <i class="fa-solid fa-key text-xl"></i>
+            </div>
+            <div class="text-left">
+                <h3 class="font-bold text-lg text-slate-900">개인 API 키 연결</h3>
+                <p class="text-xs text-slate-400">보안을 위해 본인의 Gemini API 키를 입력해야 대화가 시작됩니다.</p>
+            </div>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+            <input type="password" id="apiKeyInput" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-all" placeholder="구글 AI Studio에서 발급받은 키를 붙여넣으세요">
+            <button id="saveKeyBtn" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg active:scale-95">시작하기</button>
+        </div>
+        
+        <div class="mt-6 bg-indigo-50 p-4 rounded-xl flex items-center justify-between">
+            <span class="text-xs text-indigo-800 font-medium">아직 API 키가 없으신가요? (무료 발급)</span>
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-xs bg-white text-indigo-600 px-3 py-1.5 rounded-lg border border-indigo-200 font-bold hover:bg-indigo-50 transition-colors">
+                키 발급받기 <i class="fa-solid fa-up-right-from-square ml-1 text-[10px]"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Chat Interface (Hidden by default) -->
+    <div id="mainChat" class="hidden glass-morphism rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+        <div id="chatWindow" class="chat-container overflow-y-auto p-6 space-y-6 bg-white/50">
+            <div class="flex items-start gap-3 text-left">
+                <div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center text-white text-lg shadow-lg shrink-0"><i class="fa-solid fa-robot text-sm"></i></div>
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-sm leading-relaxed">
+                    준비가 되셨나요? 작성하신 **경험 분석 시트의 내용**을 아래에 입력해 주세요. <br><br>
+                    저는 여러분의 논리적 허점을 파고드는 시니어 면접관입니다. 단순한 칭찬보다는 날카로운 질문에 답하며 여러분의 실력을 증명해 보세요.
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 bg-white border-t border-slate-100">
+            <div class="flex gap-2 bg-slate-100 p-2 rounded-2xl focus-within:ring-2 focus-within:ring-indigo-500 transition-all">
+                <textarea id="userInput" rows="2" class="flex-1 bg-transparent border-none px-4 py-2 focus:ring-0 resize-none outline-none text-sm" placeholder="여기에 경험 분석 내용을 복사해 넣으세요..."></textarea>
+                <button id="sendBtn" class="bg-indigo-600 text-white w-12 h-12 rounded-xl hover:bg-indigo-700 flex items-center justify-center shadow-lg transition-all active:scale-95">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <p class="mt-3 text-[10px] text-slate-400 text-center"><i class="fa-solid fa-circle-info mr-1 text-[9px]"></i> 질문에 답할수록 여러분의 사고력과 면접 대응 능력이 향상됩니다.</p>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    let apiKey = "AIzaSyBRvfomIdo1XbzVgzL9hxMXBo-MBtjyQyU";
+    const keySetup = document.getElementById('keySetup');
+    const mainChat = document.getElementById('mainChat');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+    const chatWindow = document.getElementById('chatWindow');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    saveKeyBtn.addEventListener('click', () => {
+        const val = apiKeyInput.value.trim();
+        if (val && val.length > 20) {
+            apiKey = val;
+            keySetup.classList.add('hidden');
+            mainChat.classList.remove('hidden');
+        } else {
+            const msg = document.createElement('p');
+            msg.className = "text-red-500 text-xs mt-2 text-left";
+            msg.innerText = "올바른 API 키를 입력해 주세요.";
+            apiKeyInput.parentElement.appendChild(msg);
+            setTimeout(() => msg.remove(), 2000);
+        }
+    });
+
+    const systemPrompt = `당신은 IT 기업의 까다로운 시니어 기술 면접관입니다. 사용자가 제출한 프로젝트 경험 분석 내용을 보고, 논리적 허점을 찾아 꼬리 질문을 던지세요. 
+    상호작용 규칙:
+    1. 사용자의 글을 칭찬하거나 다듬어주지 마세요.
+    2. "왜 그 기술인가?", "대안은 없었나?", "본인의 기여도는 정확히 어디까지인가?" 등 날카로운 질문을 한 번에 '하나'씩만 하세요.
+    3. 사용자가 답변하면 그 답변 속의 모순이나 추가 궁금증을 다시 질문하세요.
+    4. 사고력과 문제 해결 근거를 집요하게 파헤치세요.
+    5. 어투는 정중하지만 매우 차갑고 비판적인 톤을 유지하세요.`;
+
+    async function fetchAIResponse(userText) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const payload = { 
+            contents: [{ parts: [{ text: userText }] }], 
+            systemInstruction: { parts: [{ text: systemPrompt }] } 
+        };
+
+        let delay = 1000;
+        for (let i = 0; i < 5; i++) {
+            try {
+                const response = await fetch(url, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(payload) 
+                });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error.message);
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "질문을 생성하지 못했습니다.";
+            } catch (error) {
+                if (i === 4) return "API 키가 잘못되었거나 오류가 발생했습니다. 키를 확인하고 다시 시도해 주세요.";
+                await new Promise(res => setTimeout(res, delay));
+                delay *= 2;
+            }
+        }
+    }
+
+    function addMessage(text, isUser = false) {
+        const div = document.createElement('div');
+        div.className = isUser ? 'flex justify-end' : 'flex items-start gap-3 text-left';
+        div.innerHTML = isUser 
+            ? `<div class="bg-indigo-600 text-white p-4 rounded-2xl rounded-tr-none shadow-md max-w-[85%] text-sm leading-relaxed">${text}</div>`
+            : `<div class="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center text-white text-lg shadow-lg shrink-0"><i class="fa-solid fa-robot text-sm"></i></div>
+               <div class="bg-white border border-slate-200 p-4 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-sm whitespace-pre-wrap leading-relaxed">${text}</div>`;
+        chatWindow.appendChild(div);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', async () => {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, true);
+        userInput.value = '';
+
+        const loadingId = 'loading-' + Date.now();
+        const loading = document.createElement('div');
+        loading.id = loadingId;
+        loading.className = 'text-[11px] text-slate-400 italic ml-14 flex items-center gap-2 text-left';
+        loading.innerHTML = '<span class="loading-dots text-indigo-500 font-bold">면접관이 질문을 검토 중입니다</span>';
+        chatWindow.appendChild(loading);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        const aiRes = await fetchAIResponse(text);
+        
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) chatWindow.removeChild(loadingEl);
+        
+        addMessage(aiRes);
+    });
+
+    userInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendBtn.click();
+        }
+    });
+</script>
 </body>
 </html>
